@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from .controller import auth_controller
 
 app = FastAPI()
 
@@ -13,11 +14,11 @@ async def auth():
     return {"auth": "call auth"}
 
 
-@app.post("/api/auth/register", tags=["register"])
-async def auth():
-    return {"register": "register"}
+@app.post("/api/auth/signup", tags=["signup"])
+async def signup():
+    return auth_controller.signup()
 
 
-@app.post("/api/auth/login", tags=["login"])
-async def auth():
-    return {"login": "login"}
+@app.post("/api/auth/signin", tags=["signin"])
+async def signin():
+    return auth_controller.signin()
