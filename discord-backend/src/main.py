@@ -1,5 +1,6 @@
 from fastapi import FastAPI
-from .controller import auth_controller
+from .usecases.user_usecase import user_usecase
+from .requests import UserSignupRequest
 
 app = FastAPI()
 
@@ -15,10 +16,10 @@ async def auth():
 
 
 @app.post("/api/auth/signup", tags=["signup"])
-async def signup():
-    return auth_controller.signup()
+async def signup(request: UserSignupRequest):
+    return user_usecase.signup(request=request)
 
 
 @app.post("/api/auth/signin", tags=["signin"])
 async def signin():
-    return auth_controller.signin()
+    return user_usecase.signin()
