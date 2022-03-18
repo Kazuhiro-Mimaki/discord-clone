@@ -1,1 +1,2 @@
 from .user_repository_interface import IUserRepository
+from .user_repository_interactor import UserRepository

@@ -1,5 +1,5 @@
 from ..requests import UserSignupRequest
-from src.repositories import IUserRepository
+from src.repositories import IUserRepository, UserRepository
 import hashlib
 import jwt
 import os
@@ -34,4 +34,4 @@ class UserUseCase:
         return {"signin": "signin"}
 
 
-user_usecase = UserUseCase()
+user_usecase = UserUseCase(user_repository=UserRepository())
