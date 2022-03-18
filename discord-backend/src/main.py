@@ -2,7 +2,6 @@ from fastapi import FastAPI, WebSocket
 from .usecases.user_usecase import user_usecase
 from .requests import UserSignupRequest
 from fastapi.middleware.cors import CORSMiddleware
-import socketio
 
 
 app = FastAPI()
@@ -11,8 +10,6 @@ app = FastAPI()
 # ============================
 # WebSocket
 # ============================
-sio = socketio.AsyncServer(async_mode='asgi')
-app_socketio = socketio.ASGIApp(sio, other_asgi_app=app)
 
 origins = [
     "http://localhost.tiangolo.com",
@@ -53,17 +50,16 @@ async def signin():
 # ============================
 # Socket
 # ============================
-@sio.event
-def connect(sid, environ):
-    print("connect ", sid)
-
-
-# @sio.on('message')
-# async def chat_message(sid, data):
-#     print("message ", data)
-#     await sio.emit('response', 'hi ' + data)
-
-
-@sio.event
-def disconnect(sid):
-    print('disconnect ', sid)
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    print("Accepting Connection")
+    await websocket.accept()
+    print("Accepted")
+    while True:
+        try:
+            data = await websocket.receive_text()
+            print(data)
+            await websocket.send_text(f"Message text was: {data}")
+        except:
+            pass
+            break
