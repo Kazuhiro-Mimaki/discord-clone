@@ -38,8 +38,8 @@ async def auth():
 
 
 @app.post("/api/auth/signup", tags=["signup"])
-async def signup(request: UserSignupRequest):
-    return user_usecase.signup(request=request)
+async def signup(req: UserSignupRequest):
+    return user_usecase.signup(req=req)
 
 
 @app.post("/api/auth/signin", tags=["signin"])
