@@ -1,8 +1,7 @@
-import type { NextComponentType } from "next";
 import Button from "@mui/material/Button";
 import GroupsIcon from "@mui/icons-material/Groups";
 
-const ButtonComponent: NextComponentType = () => {
+const ButtonComponent = () => {
   return (
     <Button
       style={{

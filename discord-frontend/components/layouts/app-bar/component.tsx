@@ -1,7 +1,6 @@
-import type { NextComponentType } from "next";
 import styles from "./component.module.css";
 
-const AppBar: NextComponentType = () => {
+const AppBar = () => {
   return <div className={styles.container}></div>;
 };
 

@@ -1,8 +1,7 @@
-import type { NextComponentType } from "next";
 import styles from "./component.module.css";
 import { Button } from "../../componentProvider";
 
-const SideBar: NextComponentType = () => {
+const SideBar = () => {
   return (
     <div className={styles.container}>
       <Button />
