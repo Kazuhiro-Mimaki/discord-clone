@@ -17,20 +17,21 @@ class UserUseCase:
                 return "email already in use.", 409
 
             # encrypt password
-            encryptedPassword = hashlib.sha256(req.password+10)
+            encryptedPassword = hashlib.sha256((req.password + '10').encode()).hexdigest()
 
             # create user document and save in database
-            user = self.user_repository.create(name=req.name, email=req.email, password=encryptedPassword)
+            user_id = self.user_repository.create(name=req.name, email=req.email, password=encryptedPassword)
 
             # create JWT token
-            token = jwt.encode({"user_id": user.id}, os.getenv('TOKEN_KEY'), algorithm="HS256")
+            token = jwt.encode({"user_id": user_id}, os.getenv('TOKEN_KEY'), algorithm="HS256")
 
             return {"user": {
-                "email": user.email,
-                "username": user.name,
+                "email": req.email,
+                "username": req.name,
                 "token": token
             }}, 200
-        except:
+        except Exception as e:
+            print(e)
             return "error occured. please try again", 500
 
     def signin(self):
