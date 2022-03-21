@@ -1,10 +1,12 @@
 from fastapi import FastAPI, WebSocket
+from src.requests.user import UserSigninRequest, UserSignupRequest
 from .usecases.user_usecase import user_usecase
-from .requests import UserSignupRequest
 from fastapi.middleware.cors import CORSMiddleware
+from dotenv import load_dotenv
 
 
 app = FastAPI()
+load_dotenv()
 
 
 # ============================
@@ -43,8 +45,8 @@ async def signup(req: UserSignupRequest):
 
 
 @app.post("/api/auth/signin", tags=["signin"])
-async def signin():
-    return user_usecase.signin()
+async def signin(req: UserSigninRequest):
+    return user_usecase.signin(req=req)
 
 
 # ============================
