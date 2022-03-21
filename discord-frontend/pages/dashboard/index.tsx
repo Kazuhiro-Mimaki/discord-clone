@@ -6,8 +6,11 @@ import {
   AppBar,
   Messanger,
 } from "../../components/componentProvider";
+import { useEffect } from "react";
 
 const Dashboard: NextPage = () => {
+  useEffect(() => {}, []);
+
   return (
     <div className={styles.container}>
       <section className={styles.sidebar}>

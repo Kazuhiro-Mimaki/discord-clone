@@ -17,11 +17,20 @@ session = scoped_session(
 
 Base = declarative_base()
 
+
 class USER(Base):
     __tablename__ = 'USER'
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(64), nullable=True)
     email = Column(String(256), nullable=True)
     password = Column(String(256), nullable=True)
+
+
+class MESSAGE(Base):
+    __tablename__ = 'MESSAGE'
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    content = Column(String(64), nullable=True)
+    user_id = Column(Integer, nullable=True)
+
 
 Base.metadata.create_all(bind=engine)

@@ -1,9 +1,9 @@
 from fastapi import FastAPI, WebSocket
 from src.requests.user import UserSigninRequest, UserSignupRequest
-from .usecases.user_usecase import user_usecase
+from .usecases import user_usecase, msg_usecase
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
-
+import json
 
 app = FastAPI()
 load_dotenv()
@@ -57,11 +57,21 @@ async def websocket_endpoint(websocket: WebSocket):
     print("Accepting Connection")
     await websocket.accept()
     print("Accepted")
+    key = websocket.headers.get('sec-websocket-key')
+    clients = {}
+    clients[key] = websocket
     while True:
         try:
             data = await websocket.receive_text()
-            print(data)
-            await websocket.send_text(f"Message text was: {data}")
+            json_data = json.loads(data)
+            msg_list = msg_usecase.create(req=json_data)
+            output = []
+            for msg in msg_list:
+                output.append({"id": msg.id, "content": msg.content})
+            print(clients)
+            for client in clients.values():
+                await client.send_json(output)
+            # await websocket.send_json(output)
         except:
             pass
             break

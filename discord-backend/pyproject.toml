@@ -13,6 +13,8 @@ SQLAlchemy = "^1.4.32"
 PyMySQL = "^1.0.2"
 cryptography = "^36.0.2"
 python-dotenv = "^0.19.2"
+python-engineio = "^4.3.0"
+python-socketio = "^5.0.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
