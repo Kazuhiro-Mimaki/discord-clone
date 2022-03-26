@@ -2,3 +2,4 @@ __pycache__
 .pytest_cache
 .env
 .nuxt
+node_modules
