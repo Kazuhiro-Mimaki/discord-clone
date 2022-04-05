@@ -1,4 +1,4 @@
-import express from "express";
+import * as express from "express";
 import * as http from "http";
 import * as cors from "cors";
 
@@ -16,12 +16,9 @@ app.get("/test", (req, res) => {
 });
 
 // signup
-app.post("/signup", (req, res) => {
-  
-})
+app.post("/signup", (req, res) => {});
 
 // signin
-
 
 const server = http.createServer(app);
 
