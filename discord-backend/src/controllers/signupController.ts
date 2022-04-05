@@ -1,8 +1,8 @@
 import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
+export const prisma = new PrismaClient();
 
-const signupController = async (req, res) => {
+export const signupController = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
@@ -13,6 +13,16 @@ const signupController = async (req, res) => {
       },
     });
     if (user) return res.status(409).send("email already in use.");
+
+    // create new user
+    const newUser = await prisma.user.create({
+      data: {
+        name: name,
+        email: email,
+        password: password,
+      },
+    });
+    return newUser;
   } catch (err) {
     return res.status(500).send("Error occured. Please try again");
   }

@@ -1,6 +1,7 @@
 import * as express from "express";
 import * as http from "http";
 import * as cors from "cors";
+import { signupController } from "./controllers/signupController";
 
 require("dotenv").config();
 
@@ -16,7 +17,7 @@ app.get("/test", (req, res) => {
 });
 
 // signup
-app.post("/signup", (req, res) => {});
+app.post("/signup", (req, res) => signupController);
 
 // signin
 
